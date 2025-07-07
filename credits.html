@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Credits - I Am Feeling Like a Pen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    
+  <style>
+    html, body {
+      width: 100vw;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    body {
+      background: #0000ff;
+      color: #ffff00;
+      font-family: 'Press Start 2P', 'Courier New', Courier, monospace;
+      font-size: 1.1rem;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    .crt {
+      position: relative;
+      width: 100vw;
+      min-height: 100vh;
+      padding: 60px 0 40px 0;
+      box-sizing: border-box;
+      background: #0000ff;
+      text-align: center;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .crt:before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.07) 0px,
+        rgba(255,255,255,0.07) 2px,
+        transparent 2px,
+        transparent 20px
+      );
+      opacity: 0.25;
+      z-index: 1;
+      animation: scanlines 2s linear infinite;
+    }
+    @keyframes scanlines {
+      0% { background-position-y: 0; }
+      100% { background-position-y: 20px; }
+    }
+    .credits-title {
+      font-size: 2.2rem;
+      color: #ffff00;
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px #000, 0 0 2px #fff;
+      z-index: 2;
+      position: relative;
+    }
+    .credits-section {
+      margin: 0 auto 40px auto;
+      max-width: 700px;
+      width: 90vw;
+      z-index: 2;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .credit-label {
+      color: #fff;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      margin-top: 24px;
+      margin-bottom: 8px;
+      text-shadow: 0 0 4px #000, 0 0 2px #fff;
+      border-bottom: 2px dashed #ffff00;
+      display: inline-block;
+      padding-bottom: 2px;
+      width: 100%;
+      text-align: left;
+      box-sizing: border-box;
+    }
+    .credit-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px 0;
+      text-align: left;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .credit-list li {
+      color: #ffff00;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      text-shadow: 0 0 2px #000, 0 0 1px #fff;
+      letter-spacing: 1px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+    .credit-person {
+      color: #fff;
+      font-size: 1.1rem;
+      margin-bottom: 2px;
+      text-shadow: 0 0 2px #000, 0 0 1px #fff;
+      letter-spacing: 1.2px;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .credit-work {
+      color: #ffff00;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+      font-weight: bold;
+      text-shadow: 0 0 2px #000, 0 0 1px #fff;
+      letter-spacing: 1.5px;
+      display: inline-block;
+    }
+    .credit-quote {
+      color: #fff;
+      font-size: 1.2rem;
+      margin: 32px 0 16px 0;
+      font-style: italic;
+      text-shadow: 0 0 6px #000, 0 0 2px #fff;
+      letter-spacing: 1.5px;
+      display: block;
+      text-align: left;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .end-message {
+      color: #fff;
+      font-size: 1.2rem;
+      margin-top: 60px;
+      text-shadow: 0 0 8px #000, 0 0 2px #fff;
+      letter-spacing: 2px;
+      z-index: 2;
+      position: relative;
+      text-align: center;
+      width: 100vw;
+    }
+    .credit-socials {
+      display: flex;
+      gap: 8px;
+      margin-top: 2px;
+      margin-bottom: 8px;
+    }
+    .credit-social-link {
+      display: inline-block;
+      font-size: 0.7em;
+      color: #0000ff;
+      background: #ffff00;
+      border-radius: 3px;
+      padding: 1px 6px;
+      margin: 0 1px;
+      text-decoration: none;
+      font-family: inherit;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 0 2px #000, 0 0 1px #fff;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .credit-social-icon {
+      height: 16px;
+      width: 16px;
+      vertical-align: middle;
+      margin-right: 2px;
+      filter: invert(12%) sepia(100%) saturate(5000%) hue-rotate(220deg) brightness(1.5) contrast(2);
+      /* blue filter for CRT look */
+      transition: filter 0.2s, transform 0.2s;
+    }
+    .credit-social-link:hover .credit-social-icon,
+    .credit-social-link:focus .credit-social-icon {
+      filter: drop-shadow(0 0 4px #fff200) invert(0%) sepia(100%) saturate(5000%) hue-rotate(0deg) brightness(2) contrast(2);
+      transform: scale(1.15) rotate(-2deg);
+    }
+    @media (max-width: 900px) {
+      .credits-section {
+        max-width: 98vw;
+        width: 98vw;
+      }
+    }
+    @media (max-width: 600px) {
+      .credits-title { font-size: 1.2rem; }
+      .credits-section { max-width: 99vw; width: 99vw; }
+      .credit-label, .credit-list li, .credit-quote, .credit-work, .credit-person, .end-message {
+        font-size: 0.9rem;
+      }
+      .crt {
+        padding: 24px 0 24px 0;
+      }
+      .credit-socials { gap: 4px; }
+      .credit-social-link { font-size: 0.6em; padding: 1px 4px; }
+      .credit-social-icon { height: 13px; width: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="crt">
+    <div class="credits-title">CREDITS</div>
+    <div class="credits-section">
+      <span class="credit-label">Writer, Music, Programming, Animation, Screenplay</span>
+      <ul class="credit-list">
+        <li>
+          <span class="credit-person">Shaad</span> 
+          <span class="credit-work">— 3D Animation, Direction, Lighting, Color, Programming, Web Design, Songwriting, Video Editing</span>
+          <div class="credit-socials">
+            <a href="https://instagram.com/shaad.png" target="_blank" title="Instagram" class="credit-social-link">
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/instagram.svg" alt="Instagram" class="credit-social-icon" />
+            </a>
+            <a href="https://x.com/shaadtxt" target="_blank" title="X" class="credit-social-link">
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/x.svg" alt="X" class="credit-social-icon" />
+            </a>
+            <a href="https://youtube.com/@shaadpng" target="_blank" title="YouTube" class="credit-social-link">
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/youtube.svg" alt="YouTube" class="credit-social-icon" />
+            </a>
+          </div>
+        </li>
+      </ul>
+      <span class="credit-label">Concept, 3D Animation, Modelling, Storyboard</span>
+      <ul class="credit-list">
+        <li>
+          <span class="credit-person">A Sperm Cell</span> 
+          <span class="credit-work">— "Sperm Cell Quote", Concept Inspiration, Lyric Fragments</span>
+          <div class="credit-socials">
+            <a href="https://instagram.com/a_sperm_cell" target="_blank" title="Instagram" class="credit-social-link">
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/instagram.svg" alt="Instagram" class="credit-social-icon" />
+            </a>
+          </div>
+        </li>
+      </ul>
+
+      <span class="credit-label">Special Thanks</span>
+      <ul class="credit-list">
+        <li><span class="credit-person">Dedicated to a Sperm Cell</span> <span class="credit-work">This guy made it possible</span></li>
+        <li><span class="credit-person">Tools</span> <span class="credit-work">— Blender, p5.js, Pinterest, Davinci Resolve, Krita, GitHub, FL DAW</span></li>
+      </ul>
+      <span class="credit-label">Featured Quotes</span>
+      <div class="credit-quote">“mujhpar kaam ke nishaan, jo chap chuke hai kaagaz par, viraam ke nishaan hai”</div>
+      <div class="credit-quote">“jo likh rahe hai kitaabein who padhte nahi hai, jo padh rahe kitaabein woh likhte nahi hai”</div>
+      <div class="credit-quote">“jo likhte nahi who maut ke shaukeen, aur likhne ke shaukeen kabhi marte nahi”</div>
+      <div class="credit-quote">“meri likhaayi me kahin vartmaan nahi, kaccha chittha jo likh raha who insaan nahi”</div>
+      <div class="credit-quote">“I am feelin like a pen, meri kaagaz pe pehchaan hai”</div>
+      <div class="credit-quote">“mai chahta hoon yeh kalam mera laaye farq, yeh chukaaye karz, yeh nibhaaaye farz.”</div>
+    </div>
+    <div class="end-message">Thank you for watching.<br>Keep writing your story.</div>
+  </div>
+   <!-- Floating Action Button -->
+  <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="fab" id="fab" aria-label="Play on YouTube" tabindex="0">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" r="16" fill="#FF0000"/>
+      <polygon points="13,10 24,16 13,22" fill="#fff"/>
+    </svg>
+  </a>
+
+</body>
+<script>
+// --- Slow Auto Scrolling for CRT Credits Page ---
+(function() {
+  let autoScrollActive = true;
+  let scrollSpeed = 0.5; // pixels per frame (adjust for slower/faster scroll)
+  let lastScrollY = window.scrollY;
+
+  function autoScroll() {
+    if (!autoScrollActive) return;
+    // Only scroll if not at the bottom
+    if ((window.innerHeight + window.scrollY) < document.body.offsetHeight - 2) {
+      window.scrollBy(0, scrollSpeed);
+      lastScrollY = window.scrollY;
+      requestAnimationFrame(autoScroll);
+    }
+  }
+
+  // Pause auto-scroll on user interaction
+  function pauseAutoScroll() {
+    autoScrollActive = false;
+  }
+  // Resume auto-scroll if user is idle for a while
+  let resumeTimeout;
+  function resumeAutoScroll() {
+    clearTimeout(resumeTimeout);
+    resumeTimeout = setTimeout(() => {
+      autoScrollActive = true;
+      autoScroll();
+    }, 2000); // 2 seconds idle resumes auto-scroll
+  }
+
+  window.addEventListener('wheel', pauseAutoScroll, { passive: true });
+  window.addEventListener('touchstart', pauseAutoScroll, { passive: true });
+  window.addEventListener('keydown', pauseAutoScroll);
+  window.addEventListener('mousemove', pauseAutoScroll);
+  window.addEventListener('scroll', resumeAutoScroll);
+
+  // Start auto-scroll after short delay
+  setTimeout(autoScroll, 1200);
+})();
+</script>
+</html>

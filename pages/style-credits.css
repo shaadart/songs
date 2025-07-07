@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+html, body {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+body {
+  background: #0000ff;
+  color: #ffff00;
+  font-family: 'Press Start 2P', 'Courier New', Courier, monospace;
+  font-size: 1.1rem;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+}
+.crt {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 60px 0 40px 0;
+  box-sizing: border-box;
+  background: #0000ff;
+  text-align: center;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.crt:before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.07) 0px,
+    rgba(255,255,255,0.07) 2px,
+    transparent 2px,
+    transparent 20px
+  );
+  opacity: 0.25;
+  z-index: 1;
+  animation: scanlines 2s linear infinite;
+}
+@keyframes scanlines {
+  0% { background-position-y: 0; }
+  100% { background-position-y: 20px; }
+}
+.credits-title {
+  font-size: 2.2rem;
+  color: #ffff00;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px #000, 0 0 2px #fff;
+  z-index: 2;
+  position: relative;
+}
+.credits-section {
+  margin: 0 auto 40px auto;
+  max-width: 700px;
+  width: 90vw;
+  z-index: 2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.credit-label {
+  color: #fff;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  text-shadow: 0 0 4px #000, 0 0 2px #fff;
+  border-bottom: 2px dashed #ffff00;
+  display: inline-block;
+  padding-bottom: 2px;
+  width: 100%;
+  text-align: left;
+  box-sizing: border-box;
+}
+.credit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+  text-align: left;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+.credit-list li {
+  color: #ffff00;
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  text-shadow: 0 0 2px #000, 0 0 1px #fff;
+  letter-spacing: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+.credit-person {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 2px;
+  text-shadow: 0 0 2px #000, 0 0 1px #fff;
+  letter-spacing: 1.2px;
+  font-weight: bold;
+  display: inline-block;
+}
+.credit-work {
+  color: #ffff00;
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  font-weight: bold;
+  text-shadow: 0 0 2px #000, 0 0 1px #fff;
+  letter-spacing: 1.5px;
+  display: inline-block;
+}
+.credit-quote {
+  color: #fff;
+  font-size: 1.2rem;
+  margin: 32px 0 16px 0;
+  font-style: italic;
+  text-shadow: 0 0 6px #000, 0 0 2px #fff;
+  letter-spacing: 1.5px;
+  display: block;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+.end-message {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-top: 60px;
+  text-shadow: 0 0 8px #000, 0 0 2px #fff;
+  letter-spacing: 2px;
+  z-index: 2;
+  position: relative;
+  text-align: center;
+  width: 100vw;
+}
+.credit-socials {
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+.credit-social-link {
+  display: inline-block;
+  font-size: 0.7em;
+  color: #0000ff;
+  background: #ffff00;
+  border-radius: 3px;
+  padding: 1px 6px;
+  margin: 0 1px;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: 0 0 2px #000, 0 0 1px #fff;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.credit-social-link:hover, .credit-social-link:focus {
+  background: #fff200;
+  color: #000;
+  transform: scale(1.1) rotate(-2deg);
+  text-decoration: underline;
+}
+@media (max-width: 900px) {
+  .credits-section {
+    max-width: 98vw;
+    width: 98vw;
+  }
+}
+@media (max-width: 600px) {
+  .credits-title { font-size: 1.2rem; }
+  .credits-section { max-width: 99vw; width: 99vw; }
+  .credit-label, .credit-list li, .credit-quote, .credit-work, .credit-person, .end-message {
+    font-size: 0.9rem;
+  }
+  .crt {
+    padding: 24px 0 24px 0;
+  }
+  .credit-socials { gap: 4px; }
+  .credit-social-link { font-size: 0.6em; padding: 1px 4px; }
+}

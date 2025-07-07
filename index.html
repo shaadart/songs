@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I Am Feeling Like a Pen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+  <!-- Scroll controlled video -->
+  <video id="scroll-video" src="intro1.mp4" muted preload="metadata" playsinline webkit-playsinline></video>
+  
+  <!-- Video overlay for better cinematic effect -->
+  <div class="video-overlay" id="video-overlay"></div>
+
+  <!-- Start Overlay -->
+  <section>
+    <div class="overlay">
+      <h1 class="headline" id="main-headline">I Am Feeling Like a Pen</h1>
+      <p class="subheadline" id="main-subheadline" style="opacity: 0.1; transition: opacity 0.3s;" title="Check for Credits">
+        By 
+        <a href="pages/credits.html" style="text-decoration: underline; color: inherit;">Shaad!</a> 
+        and 
+        <a href="pages/credits.html" style="text-decoration: underline; color: inherit;">A Sperm Cell</a>
+      </p>
+      <style>
+        #main-subheadline:hover {
+          opacity: 0.5 !important;
+        }
+      </style>
+        <div class="down-arrow-container">
+            <svg class="down-arrow" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+            <polyline points="10,16 20,28 30,16" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <style>
+        .down-arrow-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 32px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .down-arrow {
+            animation: arrow-bounce 1.2s infinite;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+        }
+        @keyframes arrow-bounce {
+            0%   { transform: translateY(0); }
+            50%  { transform: translateY(12px); }
+            100% { transform: translateY(0); }
+        }
+        </style>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const arrow = document.querySelector('.down-arrow-container');
+            if (arrow) {
+            arrow.addEventListener('click', function(e) {
+                window.scrollBy({ top: 450, left: 0, behavior: 'smooth' });
+            });
+            }
+        });
+        </script>
+    </div>
+  </section>
+
+  <!-- Scroll space for video -->
+  <div class="spacer"></div>
+
+  <!-- Purpose Overlay (shows as video ends) -->
+  <section class="section--purpose">
+    <div class="overlay">
+      <h2 class="headline" id="purpose-headline" style="opacity: 0; transition: opacity 1s;">The Body Fades,<br />the Ink Stays.</h2>
+      <p id="purpose-text" style="opacity: 0; background: none;  opacity: 1s; margin-top: 20px; font-size: 1.2rem; line-height: 1.6;">
+        It’s not death that scares me.
+It’s being forgotten. <br>
+This song, this story, is my way of leaving something behind. <br>
+A little piece of me, written in ink.
+      </p>
+    </div>
+  </section>
+
+  <!-- Showcase Section -->
+  <section class="section--end">
+    <div class="overlay">
+    <h2 class="headline">Explore the Systems</h2>
+    <p class="subheadline" style="background: none;">As a computer science student, I built these programs to give the song a body.
+They're simple, but they mean a lot.
+I made them by hand.. and I'm sharing them, open source.. 
+bcswhat's the point of making something real if you're the only one who gets to keep it?</p>   
+      <div class="links">
+        <a class="link-card" href="https://editor.p5js.org/your_username/sketches/ascii-video-converter" target="_blank">
+          ASCII Video Generator
+        </a>
+        <a class="link-card" href="https://editor.p5js.org/your_username/sketches/ink-connection-graph" target="_blank">
+          Ink Node Connection
+        </a>
+        <a class="link-card" href="https://editor.p5js.org/your_username/sketches/dijkstra-skeleton-path" target="_blank">
+          Dijkstra Bone Path
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slideshow Section -->
+  <section class="slideshow-section">
+    <div class="slideshow-title">May what You do <br> be what keeps you alive</div>
+    <div class="slideshow-text" id="slideshow-text"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">
+      <a href="#" class="footer-logo-link" style="display:flex;align-items:center;text-decoration:none;color:inherit;">
+        <img src="logo.png" alt="Logo" style="height:32px;vertical-align:middle;margin-right:10px;"> 
+ 
+      </a>
+    </div>
+    <div class="footer-links">
+      <a href="#" title="Instagram" aria-label="Instagram"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/instagram.svg" alt="Instagram" class="footer-icon"></a>
+      <a href="#" title="X" aria-label="X"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/x.svg" alt="X" class="footer-icon"></a>
+      <a href="#" title="Chess.com" aria-label="Chess.com"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/chessdotcom.svg" alt="Chess.com" class="footer-icon"></a>
+      <a href="#" title="YouTube" aria-label="YouTube"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/youtube.svg" alt="YouTube" class="footer-icon"></a>
+      <a href="#" title="Pinterest" aria-label="Pinterest"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/pinterest.svg" alt="Pinterest" class="footer-icon"></a>
+      <a href="pages/about.html" title="About">About</a>
+      <a href="pages/contact.html" title="Contact">Contact</a>
+      <a href="pages/copyrights.html" title="Copyrights">Copyrights</a>
+      <a href="pages/privacy.html" title="Privacy Policy">Privacy Policy</a>
+    </div>
+  </footer>
+  <script src="main.js"></script>
+
+  <!-- Floating Action Button -->
+  <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="fab" id="fab" aria-label="Play on YouTube" tabindex="0">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" r="16" fill="#FF0000"/>
+      <polygon points="13,10 24,16 13,22" fill="#fff"/>
+    </svg>
+  </a>
+</body>
+</html>
