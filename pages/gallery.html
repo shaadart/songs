@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery - I Am Feeling Like a Pen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../main.css">
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Space Grotesk', 'Press Start 2P', 'Courier New', Courier, monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+    .crt {
+      width: 100vw;
+      min-height: 100vh;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 0 60px 0;
+      position: relative;
+      z-index: 1;
+    }
+    .gallery-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 2.5rem;
+      color: #ffff00;
+      margin: 60px 0 40px 0;
+      letter-spacing: 2px;
+      text-shadow: 0 0 16px #000, 0 0 2px #fff;
+      z-index: 2;
+      position: relative;
+      background: rgba(0,0,0,0.7);
+      border-radius: 12px;
+      padding: 18px 36px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+    }
+    .gallery-grid {
+      column-count: 3;
+      column-gap: 36px;
+      width: 92vw;
+      max-width: 1200px;
+      margin: 0 auto 60px auto;
+      display: block;
+      z-index: 2;
+      position: relative;
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+      padding: 0 2vw;
+    }
+    @media (max-width: 900px) {
+      .gallery-grid { column-count: 2; column-gap: 18px; padding: 0 1vw; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid {
+        column-count: 2;
+        column-gap: 10px;
+        max-width: 99vw;
+        width: 99vw;
+        padding: 0 2vw;
+      }
+      .gallery-title { font-size: 1.3rem; padding: 10px 10px; }
+      .gallery-item { margin: 0 0 18px 0; }
+    }
+    .gallery-item {
+      display: inline-block;
+      width: 100%;
+      margin: 0 0 36px 0;
+      background: rgba(17,17,17,0.92);
+      border: 1px solid #444;
+      border-radius: 14px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.18), 0 0 0 2px #222;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      min-height: 220px;
+      transition: transform 0.35s cubic-bezier(.4,0,.2,1), box-shadow 0.25s, background 0.3s;
+      will-change: transform;
+      backdrop-filter: blur(6px);
+      box-sizing: border-box;
+      padding: 2px;
+    }
+    @media (max-width: 600px) {
+      .gallery-item { min-height: 120px; padding: 2px; }
+    }
+    .gallery-item[data-rot] {
+      transform: rotate(var(--rot, 0deg)) translate(var(--tx, 0px), var(--ty, 0px));
+    }
+    .gallery-item:hover, .gallery-item:focus {
+      z-index: 3;
+      background: rgba(255,255,255,0.95);
+      color: #000;
+      transform: scale(1.04) rotate(0deg) translate(0,0);
+    }
+    .gallery-img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      /* border-bottom: 2px dashed #ffff00; */
+      background: #222;
+      transition: filter 0.3s;
+      filter: grayscale(0.1) contrast(1.1) brightness(1.1);
+      display: block;
+    }
+    .gallery-item:hover .gallery-img {
+      filter: grayscale(0) contrast(1.2) brightness(1.2) drop-shadow(0 0 12px #fff20088);
+    }
+    .gallery-info {
+      padding: 18px 16px 14px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      position: relative;
+    }
+    .gallery-title-text {
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 1.2px;
+      text-shadow: 0 0 2px #000, 0 0 1px #fff;
+      margin-bottom: 2px;
+      font-family: 'Space Grotesk', 'Press Start 2P', monospace;
+      transition: color 0.3s;
+    }
+    .gallery-item:hover .gallery-title-text {
+      color: #000;
+    }
+    .gallery-desc {
+      color: #ffff00;
+      font-size: 0.98rem;
+      letter-spacing: 1px;
+      text-shadow: 0 0 2px #000, 0 0 1px #fff;
+      margin-bottom: 0;
+      opacity: 0;
+      max-height: 0;
+      pointer-events: none;
+      transition: opacity 0.35s, max-height 0.35s;
+      overflow: hidden;
+      font-family: 'Space Grotesk', monospace;
+    }
+    .gallery-item.show-desc .gallery-desc {
+      opacity: 1;
+      max-height: 200px;
+      pointer-events: auto;
+      margin-top: 8px;
+    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: #000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.5s;
+    }
+    .modal.active {
+      display: flex;
+      animation: fadeIn 0.5s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-content {
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0;
+      max-width: 100vw;
+      max-height: 100vh;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      animation: popIn 0.5s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.97) translateY(40px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .modal-img {
+      max-width: 100vw;
+      max-height: 100vh;
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain;
+      border-radius: 0;
+      box-shadow: 0 0 64px #000a;
+      background: #222;
+      border: none;
+      margin-bottom: 0;
+      transition: filter 0.3s;
+      position: absolute;
+      left: 0; top: 0; right: 0; bottom: 0;
+      z-index: 1;
+    }
+    .modal-info-bar {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.85) 80%, rgba(0,0,0,0.2) 100%);
+      color: #fff;
+      padding: 32px 32px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      z-index: 2;
+      width: 100vw;
+      box-sizing: border-box;
+      pointer-events: auto;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      min-height: 90px;
+      transition: background 0.3s;
+    }
+    .modal-title {
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      text-shadow: 0 0 8px #000, 0 0 2px #fff;
+      letter-spacing: 1.5px;
+      pointer-events: auto;
+      font-family: 'Space Grotesk', 'Press Start 2P', monospace;
+    }
+    .modal-desc {
+      color: #ffff00;
+      font-size: 1.1rem;
+      text-shadow: 0 0 8px #000, 0 0 2px #fff;
+      margin-bottom: 0;
+      letter-spacing: 1.1px;
+      text-align: left;
+      pointer-events: auto;
+      font-family: 'Space Grotesk', monospace;
+    }
+    .modal-close {
+      position: absolute;
+      top: 32px;
+      right: 40px;
+      font-size: 2.8rem;
+      color: #ffff00;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+      text-shadow: 0 0 12px #000, 0 0 2px #fff;
+      transition: color 0.2s;
+      padding: 0 8px;
+    }
+    .modal-close:hover {
+      color: #fff200;
+    }
+    @media (max-width: 900px) {
+      .modal-info-bar { padding: 18px 10px 12px 10px; }
+      .modal-close { top: 12px; right: 12px; font-size: 2.2rem; }
+    }
+    @media (max-width: 600px) {
+      .modal-info-bar { padding: 10px 2vw 8px 2vw; border-top-left-radius: 12px; border-top-right-radius: 12px; }
+      .modal-title { font-size: 1.1rem; }
+      .modal-desc { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="crt">
+    <div class="gallery-title">GALLERY</div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      <img class="modal-img" id="modalImg" src="" alt="" />
+      <div class="modal-info-bar">
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-desc" id="modalDesc"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Gallery data (add more as needed)
+    const galleryData = [
+      { src: '../Media/gallery/img1.jpg', title: 'Finale I', desc: 'the finale performance of a wreck before the curtain falls.' },
+      { src: '../Media/gallery/img2.jpg', title: 'Ink & Light', desc: 'Where shadows meet the glow of inspiration.' },
+      { src: '../Media/gallery/img3.jpg', title: 'Silent Verse', desc: 'Words unspoken, painted in silence.' },
+      { src: '../Media/gallery/img4.jpg', title: 'Blue Reverie', desc: 'A dream in monochrome, drifting in blue.' },
+      { src: '../Media/gallery/img5.jpg', title: 'Fragments', desc: 'Pieces of memory, scattered and golden.' },
+      { src: '../Media/gallery/img6.jpg', title: 'The Watcher', desc: 'Eyes that see beyond the page.' },
+      { src: '../Media/gallery/img7.jpg', title: 'Neon Nostalgia', desc: 'Retro lights, future sights.' },
+      { src: '../Media/gallery/img8.jpg', title: 'Lines of Fate', desc: 'Every line a destiny, every curve a choice.' },
+      { src: '../Media/gallery/img9.jpg', title: 'Midnight Draft', desc: 'Ideas born in the quietest hours.' },
+      { src: '../Media/gallery/img10.jpg', title: 'Echoes', desc: 'The past reverberates in every stroke.' },
+      { src: '../Media/gallery/img11.jpg', title: 'The Penman', desc: 'Identity in ink.' },
+      { src: '../Media/gallery/img12.jpg', title: 'Golden Hour', desc: 'A fleeting moment, captured forever.' },
+      { src: '../Media/gallery/img13.jpg', title: 'Wanderer', desc: 'A journey through words and worlds.' },
+      { src: '../Media/gallery/img14.jpg', title: 'CRT Dreams', desc: 'Pixels and poetry.' },
+      { src: '../Media/gallery/img15.jpg', title: 'The Muse', desc: 'Inspiration, elusive and electric.' },
+      { src: '../Media/gallery/img16.jpg', title: 'Between the Lines', desc: 'Stories hidden in the margins.' },
+      { src: '../Media/gallery/img17.jpg', title: 'Reflections', desc: 'Looking back, moving forward.' },
+      { src: '../Media/gallery/img18.jpg', title: 'Unwritten', desc: 'The beauty of possibility.' },
+      { src: '../Media/gallery/img19.jpg', title: 'Afterglow', desc: 'A lingering light after the end.' },
+      { src: '../Media/gallery/img20.jpg', title: 'Finale II', desc: 'The last act, the final bow before the rise.' }
+    ];
+
+    // Render gallery
+    const galleryGrid = document.getElementById('galleryGrid');
+    function randomBetween(a, b) {
+      return (Math.random() * (b - a) + a).toFixed(2);
+    }
+    galleryData.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.className = 'gallery-item';
+      div.tabIndex = 0;
+      div.setAttribute('aria-label', item.title);
+      // Scrapbook: random rotation and translation
+      const rot = randomBetween(-4, 4) + 'deg';
+      const tx = randomBetween(-10, 10) + 'px';
+      const ty = randomBetween(-10, 10) + 'px';
+      div.style.setProperty('--rot', rot);
+      div.style.setProperty('--tx', tx);
+      div.style.setProperty('--ty', ty);
+      div.setAttribute('data-rot', '');
+      div.innerHTML = `
+        <img class="gallery-img" src="${item.src}" alt="${item.title}" loading="lazy" />
+        <div class="gallery-info">
+          <div class="gallery-title-text">${item.title}</div>
+        </div>
+      `;
+      // Open modal on tap/click
+      div.addEventListener('click', e => {
+        e.stopPropagation();
+        openModal(idx);
+      });
+      // Keyboard: open modal on Enter/Space
+      div.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(idx);
+        }
+      });
+      galleryGrid.appendChild(div);
+    });
+    // Hide desc if click outside
+    document.body.addEventListener('click', () => {
+      document.querySelectorAll('.gallery-item.show-desc').forEach(el => el.classList.remove('show-desc'));
+    });
+
+    // Modal logic
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalClose = document.getElementById('modalClose');
+    let currentIdx = 0;
+    function openModal(idx) {
+      currentIdx = idx;
+      const item = galleryData[idx];
+      modalImg.src = item.src;
+      modalImg.alt = item.title;
+      modalTitle.textContent = item.title;
+      modalDesc.textContent = item.desc;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => { modalImg.focus(); }, 200);
+    }
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => {
+      if (!modal.classList.contains('active')) return;
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowRight') openModal((currentIdx + 1) % galleryData.length);
+      if (e.key === 'ArrowLeft') openModal((currentIdx - 1 + galleryData.length) % galleryData.length);
+    });
+  </script>
+</body>
+</html>
